@@ -53,3 +53,9 @@ KEKS/
 |    
 |── README.md  
 ```
+
+## Contribution workflow
+
+Direct commits to `main` should be avoided.  
+
+Changes should be developed in feature branches and merged through pull requests.
