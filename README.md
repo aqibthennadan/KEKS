@@ -12,8 +12,44 @@ The model is developed within the scope of the Kores project, with the aim of es
 
 KEKS is currently under active development. The initial prototype is implemented using the open-source Python framework PyPSA and includes simplified electricity, heating, and gas networks. The prototype serves to evaluate the modelling approach, identify required data structures, and establish the foundation for future application to municipal use cases.
 
-Future development will focus on:
-- integration of realistic municipal case studies,
-- extension of resilience scenarios,
-- improvement of network representation,
-- and development of approaches for transferring the methodology to different municipalities.
+## Installation
+
+### 1. Clone the repo
+```bash
+git clone https://github.com/aqibthennadan/KEKS.git
+cd KEKS
+```   
+
+### 2. Create and activate conda environment
+```bash
+conda env create -f environment.yml
+conda activate keks_env
+```
+Alternatively, mamba could be used; faster at resolving packages (need to check-it, conda was slow here)  
+
+### 3. Setup VS-code
+This repository has been developed to work well with VS-code, and would be recomended here as well.  
+However, it is not a must. If the user chooses to use any other tool, then the folder settings enabling jupyter notebooks to be opened by default from project-root will not work.  
+Instead, the working directory must be set manually for all notebooks in the directory "root/notebooks/..."
+```python
+import os
+
+os.chdir(os.getcwd(), '..')
+```
+
+## Repository structure  
+```text
+KEKS/  
+|  
+|── notebooks/              # Analysis and experiment notebooks  
+|  
+|── src/                    # Reusable Python functions and modules  
+|   
+|── data/                   # Input datasets  
+|  
+|── results/                # Generated results and figures  
+|    
+|── environment.yml         # Conda environment definition  
+|    
+|── README.md  
+```
