@@ -53,3 +53,15 @@ def calc_bus_sizes(n):
     bus_sizes_norm = bus_sizes/bus_sizes.groupby(level = 0).sum()
 
     return bus_sizes, bus_sizes_norm
+
+
+def setCOP_heatpump(n, cop_df):
+    """
+    Function to set the COP of heat pumps in the network. At the moment, same COP
+    for all HPs in the network.
+    Could be extended to have different COPs for different HPs, as per need.
+    """
+    hps = n.links[n.links.carrier == 'HP'].index
+    for hp in hps:
+        n.links_t.efficiency[hp] = cop_df['HP_COP']
+    return n
