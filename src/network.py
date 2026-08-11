@@ -40,16 +40,28 @@ def calc_bus_sizes(n):
     )
 
     ##considering only the charging into the export sink, and not the discharging from it, which is the export to grid. 
-    export = pd.Series(
-        {
-            ("Extern_grid", n.stores.loc['Export_sink', 'carrier']): -1 * n.stores_t.p["Export_sink"][n.stores_t.p["Export_sink"] < 0].sum() 
-        }
-    )
+    # export = pd.Series(
+    #     {
+    #         ("Extern_grid", n.stores.loc['Export_sink', 'carrier']): -1 * n.stores_t.p["Export_sink"][n.stores_t.p["Export_sink"] < 0].sum() 
+    #     }
+    # )
 
     bus_sizes = pd.concat([gen_bus_sizes, -1 * link_bus_sizes, -1 * link2_bus_sizes])
     bus_sizes = bus_sizes[bus_sizes > 1e-6] #removing zeroes and very small values
-    bus_sizes = pd.concat([bus_sizes, export])
+    # bus_sizes = pd.concat([bus_sizes, export])
 
     bus_sizes_norm = bus_sizes/bus_sizes.groupby(level = 0).sum()
 
     return bus_sizes, bus_sizes_norm
+
+
+def setCOP_heatpump(n, cop_df):
+    """
+    Function to set the COP of heat pumps in the network. At the moment, same COP
+    for all HPs in the network.
+    Could be extended to have different COPs for different HPs, as per need.
+    """
+    hps = n.links[n.links.carrier == 'HP'].index
+    for hp in hps:
+        n.links_t.efficiency[hp] = cop_df['HP_COP']
+    return n
