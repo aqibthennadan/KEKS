@@ -16,4 +16,5 @@ dependencies:
   - pip
   - pip:
       - adjustText
+      - hplib=1.9
 
